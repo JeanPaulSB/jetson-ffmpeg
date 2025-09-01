@@ -607,7 +607,6 @@ index 0000000..0e1390e
 +	{ NULL }
 +};
 +
-+
 +#define NVMPI_ENC_CLASS(NAME)
 +	static const AVClass nvmpi_ ## NAME ## _enc_class = {
 +		.class_name = #NAME "_nvmpi_encoder",
