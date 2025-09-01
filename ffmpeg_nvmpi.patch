@@ -83,7 +83,7 @@ index 6a7a85c..5810ab5 100755
                                   die "ERROR: rkmpp requires --enable-libdrm"; }
                               }
  enabled vapoursynth       && require_pkg_config vapoursynth "vapoursynth-script >= 42" VSScript.h vsscript_ini
-+enabled nvmpi		  && require_pkg_config nvmpi nvmpi nvmpi.h nvmpi_create_decoder
++enabled nvmpi             && require_pkg_config nvmpi nvmpi nvmpi.h nvmpi_create_decoder
 
 
  if enabled gcrypt; then
@@ -182,11 +182,11 @@ index d2f9a39..04dc62b 100644
  extern AVCodec ff_vp9_mediacodec_decoder;
  extern AVCodec ff_vp9_vaapi_encoder;
 
-diff --git a/libavcodec/nvmpi_dec.c b/libavcodec/nvmpi_dec.c
+diff --git a/libavcodec/nvmpi_dec.cpp b/libavcodec/nvmpi_dec.cpp
 new file mode 100644
 index 0000000..f82aa61
 --- /dev/null
-+++ b/libavcodec/nvmpi_dec.c
++++ b/libavcodec/nvmpi_dec.cpp
 @@ -0,0 +1,171 @@
 +#include <stdio.h>
 +#include <stdlib.h>
@@ -243,7 +243,7 @@ index 0000000..f82aa61
 +
 +	if(avctx->pix_fmt ==AV_PIX_FMT_NONE){
 +		 avctx->pix_fmt=AV_PIX_FMT_YUV420P;
-+	}else if(avctx-> pix_fmt != AV_PIX_FMT_YUV420P){
++	}else if(avctx->pix_fmt != AV_PIX_FMT_YUV420P){
 +		av_log(avctx, AV_LOG_ERROR, "Invalid Pix_FMT for NVMPI Only yuv420p is supported\n");
 +		return AVERROR_INVALIDDATA;
 +	}
@@ -359,11 +359,11 @@ index 0000000..f82aa61
 +NVMPI_DEC(vp9,  AV_CODEC_ID_VP9,NULL);
 +NVMPI_DEC(vp8, AV_CODEC_ID_VP8,NULL);
 +
-diff --git a/libavcodec/nvmpi_enc.c b/libavcodec/nvmpi_enc.c
+diff --git a/libavcodec/nvmpi_enc.cpp b/libavcodec/nvmpi_enc.cpp
 new file mode 100644
 index 0000000..0e1390e
 --- /dev/null
-+++ b/libavcodec/nvmpi_enc.c
++++ b/libavcodec/nvmpi_enc.cpp
 @@ -0,0 +1,272 @@
 +#include <nvmpi.h>
 +#include "avcodec.h"
